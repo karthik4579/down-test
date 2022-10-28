@@ -13,3 +13,11 @@ task:
   build_script:
     - apt update && apt install sudo && sudo apt update && sudo apt upgrade -y
     - cargo install bore-cli
+    - apt update && apt install sudo -y
+    - sudo apt update && sudo apt upgrade -y
+    - wget https://github.com/coder/code-server/releases/download/v4.8.0/code-server-4.8.0-linux-amd64.tar.gz
+    - tar -xf code-server-4.8.0-linux-amd64.tar.gz
+    - cd code-server-4.8.0-linux-amd64/bin
+    - export PASSWORD="123456"
+    - ./code-server >> /dev/null &
+    - bore local 8080 --to bore.pub
