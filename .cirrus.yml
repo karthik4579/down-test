@@ -3,7 +3,7 @@ task:
   name: Builds
   timeout_in: 120m
   container:
-    image: ubuntu:latest
+    image: rust:latest
     cpu: 8
     memory: 32G
   
