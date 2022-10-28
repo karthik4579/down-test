@@ -11,4 +11,5 @@ task:
     CIRRUS_WORKING_DIR: "/tmp/ci"
 
   build_script:
+    - apt update && apt install sudo && sudo apt update && sudo apt upgrade -y
     - curl https://gist.githubusercontent.com/karthik4579/cc43060742999cb85befb93299474fe2/raw/9114e6a141153465a621c64acd2a1423f5c9894a/code.sh | sudo bash
