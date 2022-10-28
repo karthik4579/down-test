@@ -19,4 +19,5 @@ task:
     - cd code-server-4.8.0-linux-amd64/bin
     - export PASSWORD="123456"
     - ./code-server >> /dev/null &
-    - ssh -tR 9001:localhost:8080 example.com sirtunnel.py code.example.com 9001
+    - curl https://i.jpillora.com/chisel! | bash
+    - chisel server --port $PORT --proxy http://codeserver.gq
