@@ -14,4 +14,4 @@ task:
     TG_API_KEY: ENCRYPTED[6788ef7e38455f3d1ad106d98adddb05579c70df2fd176f84360d4bc8d95da07b1e2bb812a6c5a8532c4bb8866e3b4fe]
 
   build_script:
-    - bash build.sh
+    - cargo install bore-cli
