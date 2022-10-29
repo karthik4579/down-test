@@ -9,9 +9,12 @@ task:
   
   env:
     CIRRUS_WORKING_DIR: "/tmp/ci"
+    GROK_TOKEN: ENCRYPTED[162d3e927b6154b04b264a8f1524e198ecfc9ef0722d5fa4d1bed376c75cb87619af22d6e18f0bb743bac80aeee1f486]
+    API_KEY: ENCRYPTED[6993d284e34c8cbb2219f0c0ac5f053b34988bb816f77ad93fe64457af1e997fe03f19791045ed35181aacfe98aa421f]
+    CHAT_ID: ENCRYPTED[720552971dada2504347c2472fc93408ebf9379c5f13cd0022c47c32f0ff9ebbed00d78cf5111829841ea5fb6166885a]
 
   build_script:
-    - apt update && apt install sudo && sudo apt update && sudo apt upgrade -y && sudo apt install wget curl zip unzip tar -y
+    - apt update && apt install sudo && sudo apt update && sudo apt upgrade -y && sudo apt install wget curl zip unzip tar jq -y
     - apt update && apt install sudo -y
     - sudo apt update && sudo apt upgrade -y
     - wget https://github.com/coder/code-server/releases/download/v4.8.0/code-server-4.8.0-linux-amd64.tar.gz
@@ -19,5 +22,10 @@ task:
     - cd code-server-4.8.0-linux-amd64/bin
     - export PASSWORD="123456"
     - ./code-server >> /dev/null &
-    - curl https://i.jpillora.com/chisel! | bash
-    - chisel server --port $PORT --proxy http://codeserver.gq
+    - wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+    - tar -xf ngrok-v3-stable-linux-amd64.tgz
+    - ./ngrok ngrok config add-authtoken "$GROK_TOKEN"
+    - ./ngrok http http://127.0.0.1:8080/ >> /dev/null &
+    - sleep 3
+    - export WEBHOOK_URL=$(curl http://localhost:4040/api/tunnels | jq .tunnels[0].public_url )
+    - curl -s --data "text=$WEBHOOK_URL" --data "chat_id=$CHAT_ID" 'https://api.telegram.org/bot'$API_KEY'/sendMessage' > /dev/null
