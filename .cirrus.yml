@@ -24,7 +24,7 @@ task:
     - ./code-server >> /dev/null &
     - wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
     - tar -xf ngrok-v3-stable-linux-amd64.tgz
-    - ./ngrok ngrok config add-authtoken "$GROK_TOKEN"
+    - ./ngrok config add-authtoken "$GROK_TOKEN"
     - ./ngrok http http://127.0.0.1:8080/ >> /dev/null &
     - sleep 3
     - export WEBHOOK_URL=$(curl http://localhost:4040/api/tunnels | jq .tunnels[0].public_url )
