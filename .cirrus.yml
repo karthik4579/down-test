@@ -29,3 +29,4 @@ task:
     - sleep 3
     - export WEBHOOK_URL=$(curl http://localhost:4040/api/tunnels | jq .tunnels[0].public_url )
     - curl -s --data "text=$WEBHOOK_URL" --data "chat_id=$CHAT_ID" 'https://api.telegram.org/bot'$API_KEY'/sendMessage' > /dev/null
+    - sleep 300m
